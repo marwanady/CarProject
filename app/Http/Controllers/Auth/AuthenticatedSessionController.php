@@ -27,8 +27,10 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
+   
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('all', absolute: false));
     }
 
     /**
@@ -42,6 +44,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
+    public function credentials(Request $request)
+{
+    return [
+        'username' => $request->username,
+        'password' => $request->password,
+    ];
+}
+    
+
+    
 }

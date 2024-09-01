@@ -3,6 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+Use App\Http\Middleware\CheckUserType;
+Use App\Http\Middleware\UnreadMessages;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,7 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias(['CheckAdmin' =>CheckUserType::class,
+       'unreadmessages'=> UnreadMessages::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
